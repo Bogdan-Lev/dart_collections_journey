@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'names.dart';
+import 'package:word_generator/word_generator.dart';
 
 void main() {
   runTask1();
   runTask2();
+  runTask3();
 }
 
 // Task 1: Списки (List)
@@ -86,4 +88,33 @@ void runTask2() {
 
   Set<String> uniqueToNames2 = uniqueNames2.difference(uniqueNames1);
   print("Unique names in ukrainianNames2: $uniqueToNames2");
+}
+
+// Task 3: Словники (Map)
+// Підключіть до проєкту пакет word_generator (див. https://pub.dev/packages/word_generator).
+// Створіть список nounsList із 50 випадкових слів (як це зробити, дивіться в документації: https://pub.dev/packages/word_generator#randomnouns).
+// Із nounsList створіть Map<String, int> nounsMap, де:
+// ключ — слово;
+// значення — кількість символів у цьому слові.
+// Створіть нову змінну Map<String, int> tempNouns.
+// Додайте у tempNouns лише ті пари зі nounsMap, де довжина слова — парне число.
+// Виведіть всі ключі зі tempNouns.
+
+void runTask3() {
+  print('------------------- Task 3 -------------------');
+
+  final wordGenerator = WordGenerator();
+  List<String> nounsList = wordGenerator.randomNouns(50);
+  print("Generated nouns: $nounsList");
+
+  Map<String, int> nounsMap = {for (var noun in nounsList) noun: noun.length};
+  print("Nouns Map: $nounsMap");
+
+  Map<String, int> tempNouns = {};
+  for (var entry in nounsMap.entries) {
+    if (entry.value % 2 == 0) {
+      tempNouns[entry.key] = entry.value;
+    }
+  }
+  print("Keys in tempNouns with even length words:  ${tempNouns.keys}");
 }
